@@ -100,10 +100,11 @@ export default function HomePage() {
                   </div>
                   <button
                     onClick={() => router.push(`/profile?id=${child.id}`)}
-                    className="p-2 rounded-full text-gray-400 hover:text-gray-600"
+                    className="p-2 rounded-full flex flex-col items-center gap-0.5"
                     aria-label="編集"
                   >
                     <Image src="/illustrations/41.png" alt="編集" width={24} height={24} style={{ objectFit: 'contain' }} />
+                    <span style={{ fontSize: 10, color: '#F4907A', fontWeight: 500 }}>編集</span>
                   </button>
                 </div>
                 <div className="mt-3 flex gap-2">
@@ -116,11 +117,12 @@ export default function HomePage() {
                   </button>
                   <button
                     onClick={() => deleteChild(child.id)}
-                    className="px-3 py-2 rounded-xl text-gray-400 hover:text-red-400"
+                    className="px-3 py-2 rounded-xl flex flex-col items-center gap-0.5"
                     style={{ minHeight: '44px' }}
                     aria-label="削除"
                   >
                     <Image src="/illustrations/42.png" alt="削除" width={24} height={24} style={{ objectFit: 'contain' }} />
+                    <span style={{ fontSize: 10, color: '#F4907A', fontWeight: 500 }}>削除</span>
                   </button>
                 </div>
               </div>
