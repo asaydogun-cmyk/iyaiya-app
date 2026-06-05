@@ -41,13 +41,15 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-dvh">
       {/* Header */}
-      <div className="px-5 pt-10 pb-6" style={{ background: 'linear-gradient(135deg, #ff7c7c 0%, #ff9a9a 100%)' }}>
-        <p className="text-white/80 text-sm font-medium mb-1">イヤイヤ期</p>
-        <h1 className="text-white text-2xl font-black leading-tight">
-          声かけサポート
+      <div className="px-5 pt-10 pb-6 text-center" style={{ background: 'linear-gradient(135deg, #ff7c7c 0%, #ff9a9a 100%)' }}>
+        <h1 className="text-white text-2xl font-black leading-tight mb-1">
+          うちの子トリセツ
         </h1>
-        <p className="text-white/80 text-sm mt-2">
-          お子さんに合った声かけを提案します
+        <p className="text-white/90 text-sm font-medium mb-2">
+          今この瞬間のイヤイヤ、なんとかしたい
+        </p>
+        <p className="text-white/80 mx-auto" style={{ fontSize: 12 }}>
+          子どもの特徴×今の状況で、わが子専用の声かけが、すぐ見つかる
         </p>
       </div>
 
