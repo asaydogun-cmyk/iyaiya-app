@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { getUserKey } from '@/lib/supabase'
 import type { AppRecord, Child } from '@/lib/types'
@@ -86,7 +87,9 @@ export default function RecordsPage() {
           </div>
         ) : records.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <p className="text-2xl mb-3">📖</p>
+            <div className="mb-3">
+              <Image src="/illustrations/44.png" alt="" width={48} height={48} style={{ objectFit: 'contain' }} />
+            </div>
             <p className="text-gray-600 font-medium mb-1">まだきろくがありません</p>
             <p className="text-gray-400 text-sm">声かけを使うと自動で保存されます</p>
             <button

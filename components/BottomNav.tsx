@@ -1,10 +1,11 @@
 'use client'
 
+import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 
 const tabs = [
-  { path: '/', label: 'ホーム', icon: '🏠' },
-  { path: '/records', label: 'きろく', icon: '📖' },
+  { path: '/', label: 'ホーム', icon: '/illustrations/43.png' },
+  { path: '/records', label: 'きろく', icon: '/illustrations/44.png' },
 ]
 
 export default function BottomNav() {
@@ -26,7 +27,9 @@ export default function BottomNav() {
               className="flex-1 flex flex-col items-center py-2"
               style={{ fontFamily: 'inherit', color: active ? '#F4907A' : '#9CA3AF' }}
             >
-              <span className="text-xl mb-0.5">{tab.icon}</span>
+              <span className="mb-0.5" style={{ opacity: active ? 1 : 0.45 }}>
+                <Image src={tab.icon} alt={tab.label} width={26} height={26} style={{ objectFit: 'contain' }} />
+              </span>
               <span style={{ fontSize: 11, fontWeight: active ? 700 : 500 }}>{tab.label}</span>
             </button>
           )

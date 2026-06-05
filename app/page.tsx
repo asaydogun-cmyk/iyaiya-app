@@ -103,7 +103,7 @@ export default function HomePage() {
                     className="p-2 rounded-full text-gray-400 hover:text-gray-600"
                     aria-label="編集"
                   >
-                    ✏️
+                    <Image src="/illustrations/41.png" alt="編集" width={24} height={24} style={{ objectFit: 'contain' }} />
                   </button>
                 </div>
                 <div className="mt-3 flex gap-2">
@@ -116,11 +116,11 @@ export default function HomePage() {
                   </button>
                   <button
                     onClick={() => deleteChild(child.id)}
-                    className="px-3 py-2 rounded-xl text-gray-400 hover:text-red-400 text-lg"
+                    className="px-3 py-2 rounded-xl text-gray-400 hover:text-red-400"
                     style={{ minHeight: '44px' }}
                     aria-label="削除"
                   >
-                    🗑️
+                    <Image src="/illustrations/42.png" alt="削除" width={24} height={24} style={{ objectFit: 'contain' }} />
                   </button>
                 </div>
               </div>
