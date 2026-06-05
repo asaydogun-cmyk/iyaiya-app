@@ -41,16 +41,8 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-dvh">
       {/* Header */}
-      <div className="px-5 pt-10 pb-6 text-center" style={{ background: 'linear-gradient(135deg, #ff7c7c 0%, #ff9a9a 100%)' }}>
-        <h1 className="text-white text-2xl font-black leading-tight mb-1">
-          うちの子トリセツ
-        </h1>
-        <p className="text-white/90 text-sm font-medium mb-2">
-          今この瞬間のイヤイヤ、なんとかしたい
-        </p>
-        <p className="text-white/80 mx-auto" style={{ fontSize: 12 }}>
-          子どもの特徴×今の状況で、わが子専用の声かけが、すぐ見つかる
-        </p>
+      <div className="w-full">
+        <Image src="/header.png" alt="うちの子トリセツ" width={480} height={240} className="w-full h-auto" style={{ display: 'block' }} />
       </div>
 
       <div className="flex-1 px-4 py-5 pb-24">
