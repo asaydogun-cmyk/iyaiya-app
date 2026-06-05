@@ -4,6 +4,10 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'イヤイヤ声かけアプリ',
   description: 'お子さんのイヤイヤ期に合った声かけを提案します',
+  icons: {
+    icon: '/icon.png',
+    apple: '/icon.png',
+  },
 }
 
 export const viewport: Viewport = {

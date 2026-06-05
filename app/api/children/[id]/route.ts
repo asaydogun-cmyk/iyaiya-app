@@ -53,6 +53,38 @@ export async function PUT(
   }
 }
 
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params
+    const { phrase } = await request.json() as { phrase: string }
+
+    const { data, error: fetchError } = await adminClient()
+      .from('children')
+      .select('effective_phrases')
+      .eq('id', id)
+      .single()
+    if (fetchError) return NextResponse.json({ error: fetchError.message }, { status: 500 })
+
+    const existing: string = data?.effective_phrases || ''
+    const lines = existing.split('\n').map((s: string) => s.trim()).filter(Boolean)
+    if (!lines.includes(phrase.trim())) {
+      lines.push(phrase.trim())
+      const { error } = await adminClient()
+        .from('children')
+        .update({ effective_phrases: lines.join('\n') })
+        .eq('id', id)
+      if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+    return NextResponse.json({ success: true })
+  } catch (e) {
+    console.error('children PATCH error:', e)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}
+
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }

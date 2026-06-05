@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { getUserKey } from '@/lib/supabase'
 import type { Child } from '@/lib/types'
+import BottomNav from '@/components/BottomNav'
 
 export default function HomePage() {
   const router = useRouter()
@@ -50,7 +51,7 @@ export default function HomePage() {
         </p>
       </div>
 
-      <div className="flex-1 px-4 py-5">
+      <div className="flex-1 px-4 py-5 pb-24">
         {error && (
           <div className="mb-4 p-4 rounded-xl text-sm" style={{ backgroundColor: '#fee2e2', color: '#b91c1c' }}>
             {error}
@@ -134,6 +135,8 @@ export default function HomePage() {
           ＋ 子どもを追加
         </button>
       </div>
+
+      <BottomNav />
     </div>
   )
 }

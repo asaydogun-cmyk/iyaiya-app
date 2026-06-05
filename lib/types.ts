@@ -38,4 +38,15 @@ export interface SessionData {
   child: Child
   situation: SituationInput
   result: SuggestResult
+  record_id?: string
+}
+
+export interface AppRecord {
+  id: string
+  created_at: string
+  user_key: string
+  child_id: string
+  situation: string
+  parent_status: string
+  result: SuggestResult
 }

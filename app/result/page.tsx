@@ -4,13 +4,45 @@ import { useEffect, useState, Suspense } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import PhraseCard from '@/components/PhraseCard'
-import type { SessionData, SuggestResult } from '@/lib/types'
+import { getUserKey } from '@/lib/supabase'
+import type { SessionData, SituationInput, SuggestResult } from '@/lib/types'
+
+function buildSituationSummary(s: SituationInput): string {
+  const parts = [s.previous_activity]
+  if (s.trigger) parts.push(s.trigger)
+  if (s.duration) parts.push(s.duration)
+  return parts.filter(Boolean).join(' → ')
+}
+
+async function autoSaveRecord(sessionData: SessionData) {
+  try {
+    const res = await fetch('/api/records', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        child_id: sessionData.child.id,
+        user_key: getUserKey(),
+        situation: buildSituationSummary(sessionData.situation),
+        parent_status: sessionData.situation.parent_state,
+        result: sessionData.result,
+      }),
+    })
+    if (res.ok) {
+      const record = await res.json()
+      const updated = { ...sessionData, record_id: record.id }
+      sessionStorage.setItem('iyaiya_session', JSON.stringify(updated))
+    }
+  } catch (e) {
+    console.error('Auto-save record failed:', e)
+  }
+}
 
 function ResultContent() {
   const router = useRouter()
   const [session, setSession] = useState<SessionData | null>(null)
   const [regenerating, setRegenerating] = useState(false)
   const [error, setError] = useState('')
+  const [savedPhrases, setSavedPhrases] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     const raw = sessionStorage.getItem('iyaiya_session')
@@ -19,7 +51,14 @@ function ResultContent() {
       return
     }
     try {
-      setSession(JSON.parse(raw))
+      const parsed: SessionData = JSON.parse(raw)
+      setSession(parsed)
+      // 既存のeffective_phrasesを保存済み初期値として読み込む
+      const existing = parsed.child.effective_phrases || ''
+      const lines = existing.split('\n').map(s => s.trim()).filter(Boolean)
+      if (lines.length > 0) setSavedPhrases(new Set(lines))
+      // 初回のみきろくに自動保存（record_idがなければ未保存）
+      if (!parsed.record_id) autoSaveRecord(parsed)
     } catch {
       router.push('/')
     }
@@ -46,6 +85,16 @@ function ResultContent() {
     } finally {
       setRegenerating(false)
     }
+  }
+
+  async function handleSavePhrase(text: string) {
+    if (!session || savedPhrases.has(text)) return
+    setSavedPhrases(prev => new Set(prev).add(text))
+    await fetch(`/api/children/${session.child.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phrase: text }),
+    })
   }
 
   function handleRestart() {
@@ -177,7 +226,13 @@ function ResultContent() {
           </p>
           <div className="space-y-3">
             {result.phrases.map((phrase, i) => (
-              <PhraseCard key={i} phrase={phrase} index={i} />
+              <PhraseCard
+                key={i}
+                phrase={phrase}
+                index={i}
+                onSave={() => handleSavePhrase(phrase.text)}
+                isSaved={savedPhrases.has(phrase.text)}
+              />
             ))}
           </div>
         </div>
