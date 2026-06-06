@@ -106,7 +106,7 @@ function SituationForm() {
           >
             ←
           </button>
-          <h1 className="text-white font-black text-xl">今の状況を教えて</h1>
+          <h1 className="text-white font-black text-xl">今のお子さんの状況を教えて</h1>
         </div>
         {child && (
           <p className="text-white/90 text-sm ml-12">
@@ -174,7 +174,7 @@ function SituationForm() {
             >
               必須
             </span>
-            <h2 className="font-black text-gray-900 text-sm">今の状況</h2>
+            <h2 className="font-black text-gray-900 text-sm">今のお子さんの状況</h2>
           </div>
 
           <div>
