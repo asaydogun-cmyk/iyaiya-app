@@ -21,11 +21,7 @@ function SituationForm() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
-  const [illustrationSrc] = useState(() => {
-    const files = [12, 14, 15, 16, 17]
-    const n = files[Math.floor(Math.random() * files.length)]
-    return `/illustrations/situation/${n}.png`
-  })
+  const illustrationSrc = '/illustrations/親の状態.png'
   const [parentState, setParentState] = useState('')
   const [currentState, setCurrentState] = useState('')
   const [previousActivity, setPreviousActivity] = useState('')
