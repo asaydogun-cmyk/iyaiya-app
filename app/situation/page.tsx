@@ -173,6 +173,16 @@ function SituationForm() {
             <h2 className="font-black text-gray-900 text-sm">今のお子さんの状況</h2>
           </div>
 
+          <div className="flex justify-center">
+            <Image
+              src="/illustrations/イヤイヤ.png"
+              alt=""
+              width={200}
+              height={200}
+              style={{ objectFit: 'contain' }}
+            />
+          </div>
+
           <div>
             <p className="section-label">{situationOptions.current_state.label}</p>
             <ChipSelector
